@@ -16,7 +16,7 @@ FetchContent_Declare(
 FetchContent_Declare(
         glm
         GIT_REPOSITORY https://github.com/g-truc/glm.git
-        GIT_TAG 8d1fd52 # 1.0.3
+        GIT_TAG 8d1fd52 # GLM 1.0.3
         FIND_PACKAGE_ARGS 1.0.3 CONFIG
 )
 
@@ -24,23 +24,28 @@ FetchContent_Declare(
 FetchContent_Declare(
         slang
         GIT_REPOSITORY https://github.com/shader-slang/slang.git
-        GIT_TAG 0fb6b75 # v2026.19
+        GIT_TAG 0fb6b75 # Slang 2026.19
         FIND_PACKAGE_ARGS 2026.19 CONFIG
 )
 
-# Vulkan SDK
-FetchContent_Declare(
-        VulkanHeaders
-        GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Headers.git
-        GIT_TAG 6802bb4 # 1.4.3
-        FIND_PACKAGE_ARGS 1.4.3 CONFIG
+#add_custom_command(
+#        OUTPUT shader.spv
+#        COMMAND ${SLANGC_EXECUTABLE}
+#        shader.slang
+#        -target spirv
+#        -o shader.spv
+#        DEPENDS shader.slang
+#)
+
+find_package(
+        slang REQUIRED
 )
 
+# Vulkan SDK
 find_package(Vulkan REQUIRED)
 
 FetchContent_MakeAvailable(
         glfw3
         glm
         slang
-        VulkanHeaders
 )
